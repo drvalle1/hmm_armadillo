@@ -64,7 +64,7 @@ hmm.main.function=function(dat,var.mu,sig2.a,sig2.b,gamma1,max.group,
     store.llk[i]=sum(llk)
     
     #get MAP for z.k
-    if (max.llk<store.llk[i]){
+    if (i>nburn & max.llk<store.llk[i]){
       max.llk=store.llk[i]
       store.z=z.k
     }
