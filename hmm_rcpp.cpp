@@ -30,7 +30,6 @@ IntegerVector SampleZ(NumericMatrix lprob, int nobs, IntegerVector zk,
                       NumericMatrix LogNewGr) {
   int ind;
   int MaxCurrent;
-  // NumericVector denis(MaxGroup+1);
   NumericVector lprob1(MaxGroup+1);  
   
   for(int i=0; i<nobs; i++){ //loop over all observations
@@ -47,10 +46,6 @@ IntegerVector SampleZ(NumericMatrix lprob, int nobs, IntegerVector zk,
       }
     }
 
-    // if (i==0){
-    //   denis=clone(lprob1);
-    // }
-    
     lprob1=lprob1-max(lprob1);
     lprob1=exp(lprob1);
     lprob1=lprob1/sum(lprob1);

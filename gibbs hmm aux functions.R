@@ -78,22 +78,6 @@ sample.z=function(TA,SL,mu.ak,mu.sk,sig2.ak,sig2.sk,ltheta,z.k,
 
   tmp=SampleZ(lprob=lprob,nobs=nobs,zk=z.k-1,MaxGroup=max.group-1,RandUnif=runif(nobs),
                LogNewGr=LogNewGr)    
-  # for (i in 1:nobs){
-  #   max.current=max(z.k)
-  #   # print(max.current)
-  #   lprob1=lprob[i,1:max.current]
-  #   if (max.current<max.group){
-  #     ind=max.current+1
-  #     tmp=dnorm(TA[i],mean=0,sd=sqrt(sig2.ak[ind]+var.mu),log=T)+
-  #       dnorm(SL[i],mean=0,sd=sqrt(sig2.sk[ind]+var.mu),log=T)+ltheta[ind]
-  #     lprob1=c(lprob1,tmp)
-  #   }
-  #   lprob1=lprob1-max(lprob1)
-  #   prob=exp(lprob1)
-  #   prob=prob/sum(prob)
-  #   ind=rmultinom(1,size=1,prob=prob)
-  #   z.k[i]=which(ind==1)
-  # }
   tmp+1
 }
 sample.theta=function(n.k,gamma1,max.group){
