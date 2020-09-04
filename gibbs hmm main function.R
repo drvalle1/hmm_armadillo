@@ -5,13 +5,12 @@ hmm.main.function=function(dat,var.mu,sig2.a,sig2.b,gamma1,max.group,
   #initialize parameters
   mu.sk=mu.ak=rep(0,max.group)
   sig2.ak=sig2.sk=rep(1,max.group)
-  z.k=sample(1:max.group,size=max.group,replace=T)
+  z.k=sample(1:max.group,size=nobs,replace=T)
   theta=rep(1/max.group,max.group)
   n.k=get.nk(z.k=z.k,max.group=max.group)
   
   #MCMC stuff
-  store.mu.ak=store.mu.sk=
-    store.sig2.ak=store.sig2.sk=
+  store.mu.ak=store.mu.sk=store.sig2.ak=store.sig2.sk=
     store.theta=matrix(NA,ngibbs,max.group)
   store.llk=matrix(NA,ngibbs,1)
   max.llk=-Inf

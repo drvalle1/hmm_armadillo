@@ -1,8 +1,10 @@
 rm(list=ls(all=TRUE))
+library('Rcpp')
 set.seed(3)
 
 #import data
 setwd('U:\\GIT_models\\hmm_armadillo')
+sourceCpp('hmm_rcpp.cpp')
 source('gibbs hmm aux functions.R')
 source('gibbs hmm main function.R')
 dat=read.csv('fake data.csv',as.is=T)

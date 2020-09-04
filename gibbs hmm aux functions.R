@@ -68,27 +68,33 @@ sample.z=function(TA,SL,mu.ak,mu.sk,sig2.ak,sig2.sk,ltheta,z.k,
   SL.mat=matrix(SL,nobs,max.group)
   ltheta.mat=matrix(ltheta,nobs,max.group,byrow=T)
   
-  #calculate lprob
+  #calculate lprob 
   lprob=dnorm(TA.mat,mean=mu.ak.mat,sd=sd.ak.mat,log=T)+
-    dnorm(SL.mat,mean=mu.sk.mat,sd=sd.sk.mat,log=T)+ltheta.mat
+        dnorm(SL.mat,mean=mu.sk.mat,sd=sd.sk.mat,log=T)+ltheta.mat
   
-  for (i in 1:nobs){
-    max.current=max(z.k)
-    # print(max.current)
-    lprob1=lprob[i,1:max.current]
-    if (max.current<max.group){
-      ind=max.current+1
-      tmp=dnorm(TA[i],mean=0,sd=sqrt(sig2.ak[ind]+var.mu),log=T)+
-        dnorm(SL[i],mean=0,sd=sqrt(sig2.sk[ind]+var.mu),log=T)+ltheta[ind]
-      lprob1=c(lprob1,tmp)
-    }
-    lprob1=lprob1-max(lprob1)
-    prob=exp(lprob1)
-    prob=prob/sum(prob)
-    ind=rmultinom(1,size=1,prob=prob)
-    z.k[i]=which(ind==1)
-  }
-  z.k
+  #calculate logNewGr
+  LogNewGr=dnorm(TA.mat,mean=0,sd=sqrt((sd.ak.mat^2)+var.mu),log=T)+
+           dnorm(SL.mat,mean=0,sd=sqrt((sd.sk.mat^2)+var.mu),log=T)+ltheta.mat
+
+  tmp=SampleZ(lprob=lprob,nobs=nobs,zk=z.k-1,MaxGroup=max.group-1,RandUnif=runif(nobs),
+               LogNewGr=LogNewGr)    
+  # for (i in 1:nobs){
+  #   max.current=max(z.k)
+  #   # print(max.current)
+  #   lprob1=lprob[i,1:max.current]
+  #   if (max.current<max.group){
+  #     ind=max.current+1
+  #     tmp=dnorm(TA[i],mean=0,sd=sqrt(sig2.ak[ind]+var.mu),log=T)+
+  #       dnorm(SL[i],mean=0,sd=sqrt(sig2.sk[ind]+var.mu),log=T)+ltheta[ind]
+  #     lprob1=c(lprob1,tmp)
+  #   }
+  #   lprob1=lprob1-max(lprob1)
+  #   prob=exp(lprob1)
+  #   prob=prob/sum(prob)
+  #   ind=rmultinom(1,size=1,prob=prob)
+  #   z.k[i]=which(ind==1)
+  # }
+  tmp+1
 }
 sample.theta=function(n.k,gamma1,max.group){
   v.k=rep(NA,max.group-1)
