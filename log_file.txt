@@ -1,0 +1,1 @@
+at the individual level of an observation, there is relatively little information coming from the likelihood (i.e., 2 normals) when compared to theta. As a result, theta exerts a strong influence and it is very hard to allow a new group to exist if theta is very small for that group.

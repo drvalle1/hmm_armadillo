@@ -93,7 +93,7 @@ sample.theta=function(n.k,gamma1,max.group){
     tmp=tmp*(1-v.k[i])
   }
   theta[max.group]=v.k[max.group]*tmp
-  theta
+  list(theta=theta,v.k=v.k)
 }
 calc.llk=function(TA,SL,z.k,mu.sk,mu.ak,sig2.ak,sig2.sk,max.group){
   llk=rep(NA,max.group)
@@ -103,4 +103,21 @@ calc.llk=function(TA,SL,z.k,mu.sk,mu.ak,sig2.ak,sig2.sk,max.group){
       sum(dnorm(SL[cond],mean=mu.sk[i],sd=sqrt(sig2.sk[i]),log=T))
   } 
   llk
+}
+sample.gamma=function(v,ngroups,gamma.possib){
+  #calculate the log probability for each possible gamma value
+  soma=sum(log(1-v[-ngroups]))
+  k=(ngroups-1)*(lgamma(1+gamma.possib)-lgamma(gamma.possib))
+  res=k+(gamma.possib-1)*soma
+  #to check code: sum(dbeta(v[-ngroups],1,gamma.possib[5],log=T))
+  
+  #exponentiate and normalize probabilities
+  res=res-max(res)
+  res1=exp(res)
+  res2=res1/sum(res1)
+  
+  #sample from categorical distribution
+  tmp=rmultinom(1,size=1,prob=res2)
+  ind=which(tmp==1)
+  gamma.possib[ind]
 }
