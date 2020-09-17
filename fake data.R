@@ -3,7 +3,7 @@ set.seed(1)
 
 #parameters
 nobs=10000
-ngroup=10
+ngroup=7
 seq1=-2+cumsum(rep(0.5,ngroup));  
 mu.SL.true=mu.SL=sample(seq1,size=ngroup)
 mu.TA.true=mu.TA=sample(seq1,size=ngroup)

@@ -19,7 +19,6 @@ hmm.main.function=function(dat,var.mu,sig2.a,sig2.b,max.group,ngibbs,nburn){
   
   for (i in 1:ngibbs){
     print(i)
-    print(n.k)
     mu.ak=sample.mu.ak(TA=dat$logit.TA,sig2.ak=sig2.ak,n.k=n.k,
                        z.k=z.k,max.group=max.group,var.mu=var.mu)
     mu.sk=sample.mu.sk(SL=dat$log.SL,sig2.sk=sig2.sk,n.k=n.k,

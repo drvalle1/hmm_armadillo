@@ -55,15 +55,3 @@ IntegerVector SampleZ(NumericMatrix lprob, int nobs, IntegerVector zk,
   
   return (zk);
 }
-
-// [[Rcpp::export]]
-IntegerVector rmultinom1(NumericMatrix prob, NumericVector RandUnif, int nobs, int MaxGroup){
-  NumericVector prob1(MaxGroup);
-  IntegerVector z(nobs);
-  for (int i=0; i<nobs; i++){
-    prob1=prob(i,_);
-    z[i]=whichLessDVPresence(RandUnif[i], prob1);  
-  }
-  return (z);
-  
-}

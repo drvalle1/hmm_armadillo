@@ -11,15 +11,10 @@ dat=read.csv('fake data.csv',as.is=T)
 nobs=nrow(dat)
 
 #priors
-tmp=apply(dat,2,range)
-amp=max(tmp[2,]-tmp[1,])
-sd.mu=amp/4 #4 sd to each side
-var.mu=sd.mu^2
-# var.mu=1000
+var.mu=1000
 
 #prior for precision (if sig2.a=sig2.b=0.1, then this generates very high sig2 in the absence of data = very hard to propose new groups)
-media.prec=mean(1/apply(dat,2,var))
-sig2.a=10; sig2.b=sig2.a/media.prec
+sig2.a=sig2.b=0.1
 
 #initialize parameters
 max.group=15
